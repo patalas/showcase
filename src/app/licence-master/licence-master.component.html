@@ -1,0 +1,169 @@
+<div *ngIf="filteredData$ | async as filteredData" class="container-fluid">
+  <div *ngIf="filter$ | async as filter" class="row mt-4">
+    <div class="col">
+      <ngx-datatable class="mp material fullscreen striped"
+                     [headerHeight]="80"
+                     [footerHeight]="50"
+                     [rowHeight]="50"
+                     [rows]="filteredData"
+                     [limit]="10"
+                     [columnMode]="ColumnMode.force"
+                     [selectionType]="SelectionType.single"
+                     (activate)="onSelect($event)"
+                     [messages]="{emptyMessage: 'No entries', totalMessage: 'entries'}"
+                     [sorts]="filter.sorts"
+                     [offset]="filter.offset"
+                     (sort)="onSort(filter, $event)"
+                     (page)="onPage(filter, $event)">
+        <ngx-datatable-column name="Product"
+                              prop="productName">
+
+          <ng-template let-column="column"
+                       let-sort="sortFn"
+                       let-sortDir="sortDir"
+                       ngx-datatable-header-template>
+            <span class="datatable-header-cell-wrapper">
+              <label for="supplierName"
+                     (click)="sort()"
+                     class="datatable-header-cell-label"> {{column.name}} <mp-sort [sortDir]="sortDir">
+                </mp-sort>
+              </label>
+            </span>
+            <div class="table-header-filter input-group">
+              <input class="form-control form-control-sm"
+                     [(ngModel)]="filter.master.productName"
+                     (ngModelChange)="dispatchFilter(filter)">
+            </div>
+          </ng-template>
+
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Company"
+                              prop="companyName">
+          <ng-template let-column="column"
+                       let-sort="sortFn"
+                       let-sortDir="sortDir"
+                       ngx-datatable-header-template>
+            <span class="datatable-header-cell-wrapper">
+              <label for="supplierName"
+                     (click)="sort()"
+                     class="datatable-header-cell-label"> {{column.name}} <mp-sort [sortDir]="sortDir">
+                </mp-sort>
+              </label>
+            </span>
+            <div class="table-header-filter input-group">
+              <select class="form-control form-control-sm"
+                      id="supplierName"
+                      [(ngModel)]="filter.master.companyName"
+                      (ngModelChange)="dispatchFilter(filter)">
+                <option *ngFor="let p of companyNames$ | async"
+                        [ngValue]="p">{{p ? p : ''}}</option>
+              </select>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Supplier"
+                              prop="supplierName">
+          <ng-template let-column="column"
+                       let-sort="sortFn"
+                       let-sortDir="sortDir"
+                       ngx-datatable-header-template>
+            <span class="datatable-header-cell-wrapper">
+              <label for="status"
+                     (click)="sort()"
+                     class="datatable-header-cell-label"> {{column.name}} <mp-sort [sortDir]="sortDir">
+                </mp-sort>
+              </label>
+            </span>
+            <div class="table-header-filter input-group">
+              <select class="form-control form-control-sm"
+                      id="status"
+                      [(ngModel)]="filter.master.supplierName"
+                      (ngModelChange)="dispatchFilter(filter)">
+                <option *ngFor="let p of supplierNames$ | async"
+                        [ngValue]="p">{{p ? p : ''}}</option>
+              </select>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Last updated"
+                              prop="lastUpdateDate">
+          <ng-template let-column="column"
+                       let-sort="sortFn"
+                       let-sortDir="sortDir"
+                       ngx-datatable-header-template>
+            <span class="datatable-header-cell-wrapper">
+              <label for="lastUpdateDate"
+                     (click)="sort()"
+                     class="datatable-header-cell-label"> {{column.name}} <i class="fa fa-question-circle-o mr-2"
+                   ngbTooltip="From the selected date since today"
+                   container="body"></i>
+                <mp-sort [sortDir]="sortDir">
+                </mp-sort>
+              </label>
+            </span>
+            <div class="table-header-filter input-group">
+              <input class="form-control form-control-sm"
+                     id="lastUpdateDate"
+                     name="lastUpdateDate"
+                     placeholder="yyyy-mm-dd"
+                     #lastUpdateDatePicker="ngbDatepicker"
+                     [(ngModel)]="filter.master.lastUpdateDate"
+                     #lastUpdateDateModel="ngModel"
+                     (ngModelChange)="dispatchFilter(filter)"
+                     (blur)="checkDatatruct(lastUpdateDateModel)"
+                     ngbDatepicker
+                     placement="bottom"
+                     autocomplete="off"
+                     [maxDate]="maxDate"
+                     container="body">
+              <div class="input-group-append">
+                <button class="btn input-group-addon"
+                        (click)="lastUpdateDatePicker.toggle()"
+                        type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template ngx-datatable-cell-template
+                       let-value="value">
+            {{value | date}}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+  <div class="row mt-2 mb-2">
+    <div class="col">
+      <div class="float-right">
+        <button class="btn btn-success ml-4"
+                (click)="onNewClicked()">New Licence
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="help mt-4">
+  <div>
+    <div class="h5">This is my showcase made with Angular to show some benefits of modern web applications and to underline details in good user experience</div>
+    It is a simple application to manage licence keys with a master and detail view. Fell free to try it out.
+  </div>
+  <div>
+    Table made by Swimlane highly customized by myself to fullfill the needs.
+    <div>
+      <i class='fa fa-arrow-right mr-2'
+         aria-hidden='true'></i> Filters allow to reduce the amount of shown entries",
+    </div>
+    <div><i class='fa fa-arrow-right mr-2'
+         aria-hidden='true'></i> User specific sorting and filtering
+    </div>
+    <div><i class='fa fa-arrow-right mr-2'
+         aria-hidden='true'></i> Clean look with few horizontal lines and light background colors
+    </div>
+  </div>
+  <div>
+    With a click on an entry you enter the detail view. You can also create a new licence entry with the button bellow
+  </div>
+
+</div>

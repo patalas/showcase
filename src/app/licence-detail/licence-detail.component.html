@@ -1,0 +1,214 @@
+<div *ngIf="form" class="container">
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-6">
+        <div class="row input-group">
+          <label class="col-4 form-label"
+                 for="product">Product <mp-required></mp-required></label>
+          <div class="col">
+            <div class="input-group">
+              <input id="product"
+                     #searchInput
+                     name="searchInput"
+                     type="text"
+                     class="form-control"
+                     maxlength="50"
+                     [ngbTypeahead]="productSearch"
+                     [inputFormatter]="productFormatter"
+                     [resultTemplate]="resultTemplate"
+                     (selectItem)="onProductSelected($event.item)"
+                     [placeholder]="'Autocomplete search&#8230;'"
+                     (blur)="checkProduct(); searchProduct = false"
+                     formControlName="product">
+              <ng-template #resultTemplate
+                           let-r="result">
+                <span>{{r.name}} - {{r.company.name}}</span>
+              </ng-template>
+
+              <span *ngIf="searchProduct"
+                    class="input-spinner"><i class="fa fa-spinner fa-spin"></i></span>
+
+            </div>
+            <mp-validation [control]="form.controls['product']"></mp-validation>
+          </div>
+
+        </div>
+        <div class="row input-group mt-2">
+          <label class="col-4 form-label"
+                 for="company">Company</label>
+          <div class="col-8 input-group">
+            <input id="company"
+                   type="text"
+                   class="form-control-plaintext"
+                   formControlName="company"
+                   tabindex="-1"
+                   readonly>
+          </div>
+        </div>
+        <div class="row input-group mt-2">
+          <label class="col-4 form-label"
+                 for="supplier">Supplier</label>
+          <div class="col-8 input-group">
+            <select class="form-control"
+                    id="supplier"
+                    formControlName="supplier">
+              <option [ngValue]="null"></option>
+              <option *ngFor="let p of supplier$ | async"
+                      [ngValue]="p">{{p ? p.name : ''}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 p-0">
+        <div class="row input-group flex m-0">
+          <label for="note"
+                 #noteLabel
+                 class="note-label">Note</label>
+          <textarea class="note m-0"
+                    formControlName="note"
+                    (focus)="noteLabel.style.display = 'none'"
+                    (blur)="noteLabel.style.display = 'inline'"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 p-0 mt-5">
+        <form [formGroup]="keyForm">
+          <ngx-datatable *ngIf="form.value.keys.length > 0"
+                         class="mp material fullscreen striped ml-0 mr-0 mb-0"
+                         [headerHeight]="50"
+                         [footerHeight]="50"
+                         [rowHeight]="60"
+                         [rows]="form.value.keys"
+                         [limit]="10"
+                         [columnMode]="ColumnMode.flex"
+                         [selectionType]="SelectionType.single"
+                         [messages]="{emptyMessage: 'No keys', totalMessage: 'keys'}"
+                         [selected]="keySelection"
+                         [sorts]="['key']"
+                         (select)="onKeySelect($event)">
+            <ngx-datatable-column name="Key"
+                                  prop="key"
+                                  [flexGrow]="0.8"
+                                  [resizeable]="false">
+              <ng-template ngx-datatable-header-template>
+                <span class="datatable-header-cell-wrapper"><span class="datatable-header-cell-label draggable">Key <mp-required></mp-required></span></span>
+              </ng-template>
+              <ng-template ngx-datatable-cell-template
+                           let-row="row">
+                <ng-container *ngIf="row === selectedKey; else elseKey">
+                  <input id="key"
+                         type="text"
+                         class="form-control cell-control"
+                         formControlName="key">
+                  <mp-validation style="position: absolute;"
+                                 divClass="key-validation"
+                                 [control]="keyForm.controls['key']"></mp-validation>
+                </ng-container>
+                <ng-template #elseKey>
+                  <div class="cell-label">
+                    {{row.key}}
+                  </div>
+                </ng-template>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Valid to"
+                                  prop="validTo"
+                                  [resizeable]="false"
+                                  [flexGrow]="0.6">
+              <ng-template ngx-datatable-header-template>
+                <span class="datatable-header-cell-wrapper"><span class="datatable-header-cell-label draggable">Valid to </span></span>
+              </ng-template>
+              <ng-template ngx-datatable-cell-template
+                           let-row="row">
+                <ng-container *ngIf="row === selectedKey; else elseValidTo">
+                  <div class="table-header-filter input-group">
+                    <input class="form-control cell-control"
+                           id="validTo"
+                           #validToDatePicker="ngbDatepicker"
+                           ngbDatepicker
+                           placement="bottom"
+                           autocomplete="off"
+                           formControlName="validTo"
+                           container="body">
+                    <div class="input-group-append">
+                      <button class="btn input-group-addon"
+                              (click)="validToDatePicker.toggle()"
+                              type="button">
+                        <i class="fa fa-calendar"></i>
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #elseValidTo>
+                  <div class="cell-label">
+                    {{row.validTo | timestamp | date}}
+                  </div>
+                </ng-template>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Note"
+                                  prop="note"
+                                  [flexGrow]="1"
+                                  [resizeable]="false"
+                                  [sortable]="false">
+              <ng-template ngx-datatable-header-template>
+                <span class="datatable-header-cell-wrapper"><span class="datatable-header-cell-label draggable">Note </span></span>
+              </ng-template>
+              <ng-template ngx-datatable-cell-template
+                           let-row="row">
+                <ng-container *ngIf="row === selectedKey; else elseNote">
+                  <div class="simple-flex">
+                    <input id="note"
+                           type="text"
+                           class="form-control cell-control"
+                           formControlName="note"
+                           maxlength=100
+                           style="flex: 1">
+                    <button class="btn btn-sm btn-danger ml-2"
+                            style="flex: 0 2rem"
+                            (click)="onDeleteKey()"
+                            ngbTooltip="Delete key"
+                            container="body"><i class="fa fa-times"></i></button>
+                  </div>
+                </ng-container>
+                <ng-template #elseNote>
+                  <div class="cell-label">
+                    {{row.note}}
+                  </div>
+                </ng-template>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+          <div class="row float-right mb-5">
+            <ng-container *ngIf="form.controls.keys.value?.length === 0">
+              <span *ngIf="!form.controls.keys.touched; else pleaseAddKeyTouched"
+                    class="my-auto mr-2 text-muted">Please add a key</span>
+              <ng-template #pleaseAddKeyTouched><span class="my-auto mr-2 text-danger">Please add a key before saving!</span></ng-template>
+            </ng-container>
+            <div class="col">
+              <button class="btn btn-primary my-auto" [disabled]="this.keyForm.invalid"
+                      (click)="onNewKeyClicked()">Add key</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </form>
+  <div class="row mt-5">
+    <div class="col p-0">
+      <button class="btn btn-secondary"
+              (click)="onCancel()">Cancel
+      </button>
+      <div class="float-right">
+        <button *ngIf="form?.controls.id.value"
+                class="btn btn-danger mr-5"
+                (click)="onDelete()">Delete
+        </button>
+        <button class="btn btn-success ml-5"
+                (click)="onSave(licence)">Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

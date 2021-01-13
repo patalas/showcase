@@ -1,0 +1,30 @@
+<form class="mt-3 mb-3 ml-2 mr-2">
+    <div class="modal-header pt-1 pb-1">
+      <div class="card-title h5">
+         {{title}}
+      </div>
+      <button type="button"
+              class="close"
+              aria-label="Close"
+              tabindex="-1"
+              (click)="activeModal.dismiss('dismiss clicked')">
+        <i class="fa fa-close"
+           aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="modal-body justify-content-center">
+      <div class="row">
+        <div class="col-md-12">
+         {{text}}
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-12">
+          <div class="float-right d-flex align-items-center">
+            <button class="btn btn-secondary" type="button" (click)="onConfirmClicked()">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  

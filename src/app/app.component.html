@@ -1,0 +1,10 @@
+<mp-alert></mp-alert>
+<mp-header></mp-header>
+<div *ngIf="baseDataLoaded; else loadingBaseData">
+<div class="main-content">
+    <router-outlet></router-outlet>
+</div>
+</div>
+<ng-template #loadingBaseData>
+  <div class="bg-primary">Loading Base Data</div>
+</ng-template>

@@ -1,0 +1,7 @@
+<div *ngIf="hasErrors()" class="mt-1" [class]="divClass" >
+    <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
+    <span *ngIf="hasErrorRequired()"
+           class="text-danger">
+        Mandatory field
+    </span>
+</div>

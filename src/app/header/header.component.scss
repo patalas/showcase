@@ -1,0 +1,35 @@
+.project-name {
+    color: #159957;
+    margin: 0;
+}
+
+.page-header {
+    display: block;
+    background: url("/assets/images/desktop.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-attachment: fixed;
+    background-color: #ffff;
+    color: #991578;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.25rem;
+}
+
+
+@media screen and (min-width: 64em) {
+    .page-header {
+        padding: 2rem 0;
+    }
+
+    .project-name {
+        font-size: 2.25rem;
+        margin: 1rem 0;
+    }
+}
+
+a {
+    color: #991578;
+}

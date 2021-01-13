@@ -1,0 +1,175 @@
+@import "~font-awesome/css/font-awesome.css";
+@import '~bootstrap/scss/bootstrap';
+@import url(https://fonts.googleapis.com/css?family=Raleway:100,400,700);
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+  display: block;
+}
+
+h4 {
+  font-size: 1.4rem;
+  line-height: 1.9rem;
+  color: #159957;
+}
+
+label {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+
+.raleway {
+  font-family: Raleway, Open Sans, Droid Sans, Roboto, sans-serif, arial;
+}
+
+@media screen and (min-width: 64em) {
+  .main-content {
+    max-width: 64rem;
+    padding: 2rem 6rem;
+    margin: 0 auto;
+    font-size: 1rem;
+  }
+}
+
+.form-control {
+  font-weight: 500;
+}
+
+.ngx-datatable.material .datatable-header .resize-handle {
+  border-right: dotted 1px rgb(233, 233, 233);
+}
+
+
+.ngx-datatable.material.mp {
+  // box-shadow: 1px 1px rgba(0, 0, 0, 0.1), -1px -1px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 0;
+
+  .datatable-body-row {
+    cursor: pointer;
+  }
+
+  .float-right>div {
+    float: right;
+  }
+
+  .table-header-filter {
+    .btn {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    select {
+      cursor: pointer;
+    }
+  }
+
+  .datatable-body-row.row-marked-bold .datatable-body-cell {
+    font-weight: bold;
+  }
+
+  .datatable-body-row.row-marked-warning .datatable-body-cell {
+    color: red;
+  }
+
+  .datatable-body-cell.button-cell {
+    padding-top: 0;
+
+    button {
+      color: black;
+    }
+  }
+}
+
+.input-spinner {
+  position: absolute;
+  right: 1.5rem;
+  top: 0.3rem;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.ngx-datatable.material .datatable-header .datatable-header-cell {
+  font-size: 1rem;
+}
+
+.ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell {
+  font-size: 1rem;
+}
+
+.ngx-datatable.material.striped .datatable-row-even {
+  background-color: #eafdf3;
+}
+
+.ngx-datatable.material.striped .datatable-row-odd {
+  background-color: #fff;
+}
+
+.ngx-datatable.material.single-selection .datatable-body-row.active,
+.ngx-datatable.material.single-selection .datatable-body-row.active:hover,
+.ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group,
+.ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group:hover{
+  background-color: #eaf2ff;
+}
+
+.ngx-datatable.material .datatable-header .datatable-header-cell {
+  color: black;
+}
+
+.form-control, .form-control:focus {
+  color: black;
+}
+
+.btn-danger {
+  background-color: rgb(218, 147, 154);
+  border-color: rgb(218, 147, 154);
+}
+
+.btn-danger:hover {
+  background-color: rgb(220, 53, 69);
+}
+
+abbr[title] {
+  border-bottom: none !important;
+  cursor: inherit !important;
+  text-decoration: none !important;
+}
+
+.key-validation {
+  background: white;
+  padding: 0.05rem 2.05rem;
+  border: 1px solid red;
+  margin-top: 0 !important;
+  z-index: 999999;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.help {
+  @extend .border, .rounded, .p-4, .m-3;
+  background: #ffffff;
+}
+
+.help div {
+  padding: 0 0 0.3rem 0;
+}

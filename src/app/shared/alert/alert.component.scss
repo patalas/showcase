@@ -1,0 +1,17 @@
+.alert {
+  margin-bottom: 0
+}
+
+.box {
+  z-index: 10000000;
+  position: fixed;
+  left: 10%;
+  right: 5%;
+  top: 20px;
+  opacity: 0.9;
+}
+
+.box .alert {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

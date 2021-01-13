@@ -1,0 +1,46 @@
+.note {
+  width: 100%;
+  border: 1px solid #ced4da !important;
+  border-radius: 0.25rem;
+  height: 8rem;
+  margin-top: 0;
+  flex: 1 0;
+}
+
+.note:focus {
+  outline: none !important;
+  box-shadow: 0 0 0;
+  border: 1px solid #ced4da !important;
+  border-radius: 0.25rem;
+}
+
+.note-label {
+  padding-left: 0;
+  padding-top: 0.2rem !important;
+  padding-bottom: 0.7rem !important;
+  margin-top: 5px !important;
+  flex: 0 5rem;
+}
+
+.hide {
+  display: none;
+}
+
+.form-control-plaintext {
+  font-size: 16px;
+  padding-left: 0.5rem;
+}
+
+.cell-control {
+  padding: 0 5px;
+}
+
+.cell-label {
+  margin: 5px 5px;
+}
+
+.simple-flex {
+  display: flex;
+  flex-direction: row;
+  align-content: stretch;
+}
